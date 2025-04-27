@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  Wix Documentation
+  http://www.tramontana.co.hu/wix/
+  
+  Run through this checklist before releasing your installer
+  http://www.tramontana.co.hu/wix/checklist.php 
+  -->
+<!-- Clickonce shortcut to the application being deployed -->
+<?define ClickOnceUri="http://www.example.com/Sample.application"?>
+<!-- Address for data feed -->
+<?define FeedUri="http://www.example.com/masterfeed.xml"?>
+<!-- The guid that uniquely identifies this product. You must change the guid and increment the product version when creating upgrade msi's -->
+<?define ProductCode="PUT-GUID-HERE" ?>
+<!-- Identifies a family of msi's than can upgrade (ie only MSI's that share the same upgrade code can upgrade) -->
+<?define UpgradeCode="PUT-GUID-HERE"?>
+<!-- Human readable name of the publisher distributing this product -->
+<?define PublisherName="Sample"?>
+<!-- Publisher name in a form that can be used in file paths -->
+<?define PublisherPath="Sample"?>
+<!-- Human readable name of the application. This must match the reader application's ApplicationName setting in order to establish IPC between the reader app and Subscription Center-->
+<?define ApplicationName="ScePhotoViewer"?>
+<!-- Human readable name that will be seen in Add/Remove Programs -->
+<?define ProductName="Sample ScePhotoViewer Desktop Add-ons"?>
+<!-- Product name in a form that can be used in file paths -->
+<?define ProductPath="ScePhotoViewer"?>
+<!-- Version code for this product Major.Minor.Revision.Build -->
+<?define ProductVersion="1.0.0.0"?>
+<!-- Description of this product -->
+<?define ProductDescription="Sample ScePhotoViewer Reader 1.0"?>
+<!-- Product .exe that runs the application -->
+<?define ProductExe="ApplicationShortcut.appref-ms"?>
+<!-- File extension for the products documents -->
+<!-- Minimum amount of time before subscription center will update the application feed -->
+<?define FeedUpdateInterval="01:00:00" ?>
+<!--<?define DocFileExtension=".sample-sce-story"?>-->
+<!-- ProgId for SCE Reader documents. See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/shellcc/platform/shell/programmersguide/shell_basics/shell_basics_extending/fileassociations/fa_progids.asp -->
+<?define DocProgId="Sample.SCEPhotoViewer.Story"?>
+<!-- mime type for SCE Reader documents -->
+<!--<?define DocContentType="application/x-sample.sce.story"?>-->
+<!-- Description of SCE Reader documents -->
+<!--<?define DocDescription="Sample SCE Reader Story"?>-->
+<!-- Specifies if feed access requires Authentication -->
+<?define RequiresAuthentication="False" ?>
+<!-- Specifies the Authentication Uri -->
+<?define AuthenticationUri="http://www.example.com/auth/validateuser.asp" ?>
+<!-- Specifies if Form Authentication is required -->
+<?define RequiresFormAuthentication="False" ?>
+<!-- Specifies Parameters for Form Authentication -->
+<?define FormAuthenticationParams="tourl=%2Fsampleuser%2Fyouraccount.asp&email={0}&password={1}" ?>
+<!-- Well known properties that are used to populate Add\Remove programs entry-->
+<?define ArpContactUrl="feedback@example.com"?>
+<?define ARPHelpUrl="support@example.com" ?>
+<?define ARPAboutUrl="http://www.example.com/about" ?>
+<?define ARPUpdateUrl="http://www.example.com/update"?>
+<?define ARPHelpPhone="(000) 000-0000"?>
+<?define ARPReadMe="readme.txt"?>
+<!-- Metadata the appears in the summary tab of an MSI's properties -->
+<?define MSISummaryDescription="Sample ScePhotoViewer Desktop Add-ons Installer"?>
+<?define MSISummaryComments="Sample ScePhotoViewer Desktop Add-ons published by Sample"?>
+<?define MSISummaryKeywords="Installer"?>
+
+<Wix 
+    xmlns="http://schemas.microsoft.com/wix/2006/wi"
+    xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+>
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Manufacturer="$(var.PublisherName)" Language="1033" Version="$(var.ProductVersion)" UpgradeCode="$(var.UpgradeCode)">
+    <!--
+        Id :: 
+            The guid that uniquely identifies this product.
+            You must change the guid and increment version when creating upgrade msi's
+            
+        UpgradeCode :: 
+            Only products with an upgrade code can be upgraded.
+            You can only upgrade from one product to another if they have the same upgrade code.
+            See http://www.tramontana.co.hu/wix/lesson4.php#upgrade for an example of how to upgrade
+            
+        Language ::
+            Identifies the language the installer is built for. The number is a locale id
+            1033 is the en-us (English - United States) locale id
+            See http://www.microsoft.com/globaldev/reference/lcid-all.mspx for a list of locale ids
+            
+        Version :: 
+            The format is major.minor.build.revision
+            major.minor.build are used for things like preventing downgrades but revision is ignored
+      -->
+    <Package Description="$(var.MSISummaryDescription)" InstallerVersion="200" Compressed="yes" Languages="1033" Comments="$(var.MSISummaryComments)" Keywords="$(var.MSISummaryKeywords)" Manufacturer="$(var.PublisherName)" InstallPrivileges="limited">
+      <!-- 
+          InstallPrivileges :: 
+            Advertises what privilages the msi needs to install.
+            If it is set to elevated the msi will always prompt on Vista.
+            If it is not set to elevated and the msi tries to perform a privilage action on Vista, the install will fail.
+            
+          Description, Comments, Keywords, Manufacturer ::
+            Metadata the appears in the summary tab of an MSI's properties
+        -->
+    </Package>
+    <!-- Media we are installing from in this case a cab file embedded in the msi-->
+    <Media Id="1" Cabinet="Product.cab" EmbedCab="yes" />
+    <!-- Determine whether the installer should run -->
+    <Condition Message="This product only runs on Windows Server 2003, Windows XP, Windows Vista and better.">Installed OR (VersionNT &gt; 500)</Condition>
+    <Condition Message=".NET Framework 3.0 is not present on the computer.">Installed OR FRAMEWORK30 OR FRAMEWORKCLIENT30</Condition>
+    
+    <Property Id="FRAMEWORK30">
+      <!-- This property is set to the value of a registry key to determine if .net 3.0 is installed-->
+      <RegistrySearch Id="Framework30RegKey" Root="HKLM" Key="Software\Microsoft\NET Framework Setup\NDP\v3.0\Setup" Name="InstallSuccess" Type="raw" />
+    </Property>
+
+     <Property Id="FRAMEWORKCLIENT30">
+      <!-- This property is set to the value of a registry key to determine if .net 3.0 client is installed -->
+      <RegistrySearch Id="FrameworkClient30RegKey" Root="HKLM" Key="Software\Microsoft\NET Framework Setup\DotNetClient\v3.5\Layers\v3.0" Name="Install" Type="raw" />
+    </Property>
+
+    <!-- Well known properties that are used to populate Add\Remove programs entry-->
+    <Property Id="ARPCOMMENTS">$(var.ProductName) from $(var.PublisherName)</Property>
+    <Property Id="ARPCONTACT">$(var.ArpContactUrl)</Property>
+    <Property Id="ARPHELPLINK">$(var.ARPHelpUrl)</Property>
+    <Property Id="ARPURLINFOABOUT">$(var.ARPAboutUrl)</Property>
+    <Property Id="ARPURLUPDATEINFO">$(var.ARPUpdateUrl)</Property>
+    <Property Id="ARPHELPTELEPHONE">$(var.ARPHelpPhone)</Property>
+    <Property Id="ARPREADME">$(var.ARPReadMe)</Property>
+    <Property Id="ARPPRODUCTICON">ProductIcon.exe</Property>
+    
+    <Upgrade Id="$(var.UpgradeCode)">
+      <!-- Detect if newer versions are already installed in order to prevent downgrades -->
+      <UpgradeVersion OnlyDetect="yes" Property="NEWERFOUND" Minimum="$(var.ProductVersion)" IncludeMinimum="no" />
+      <!-- Detect if current version is already installed in order to prevent applying an upgrade twice -->
+      <UpgradeVersion OnlyDetect="yes" Property="PATCHFOUND" Minimum="$(var.ProductVersion)" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="yes" />
+      <UpgradeVersion Property="OLDERFOUND" Minimum="0.0.0.0" IncludeMinimum="yes" Maximum="$(var.ProductVersion)" IncludeMaximum="no" />
+    </Upgrade>
+    
+    <!-- 
+        Custom Actions - These can be enabled and disabled by commenting out their entries in
+        InstallExecuteSequence tag at the end of the file
+    -->
+    <!-- Custom action to prevent downgrading to a lower product version -->
+    <CustomAction Id="NoDowngrade" Error="A later version of [ProductName] is already installed." />
+    <!-- Custom action to prevent installing if already installed -->
+    <CustomAction Id="AlreadyUpdated" Error="[ProductName] is already installed." />    
+    <!-- util:XmlFile cannot refer to File Id's, this custom action copies a File Id on a Property so Shortcuts can use it -->
+    <CustomAction Id="SetProductExePath" Property="ProductExePath" Value="[#ProductExe]" />
+    <CustomAction Id="SetSubscriptionManifestFilePath" Property="SubscriptionManifestFilePath" Value="[#SubscriptionManifestTemplate]" />
+    <CustomAction Id="SetSubscriptionLogoPath" Property="SubscriptionLogoPath" Value="[#SubscriptionLogo]" />
+    
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Installation directory structure -->
+      <Directory Id="LocalAppDataFolder" Name="LocalAppDataFolder">
+        <Directory Id="PublisherFolder" Name="$(var.PublisherPath)">
+          <!-- Name :: Name for the publisher folder -->
+          <Directory Id="ProductFolder" Name="$(var.ProductPath)">
+            <Directory Id="CacheFolder" Name="Cache">            
+            </Directory>
+            
+            <!-- Name :: Name for the product folder -->
+            <Component Id="MainProductComponent" Guid="PUT-GUID-HERE">
+              <RegistryValue Id="IsInstalledRegKey" Root="HKCU" Key="SOFTWARE\$(var.PublisherPath)\$(var.ProductPath)" Name="Installed" Value="1" Type="integer" KeyPath="yes" />
+
+              <File Id="ProductExe" Name="$(var.ProductExe)" DiskId="1" Vital="yes" Source="$(var.ProductExe)" />
+              <File Id="SceDfShimExe" Name="SceDfshim.exe" DiskId="1" Vital="yes" Source="..\..\References\SceDfshim.exe" />
+              <File Id="SubscriptionLogo" Name="SubscriptionLogo.png" Source="..\SubscriptionLogo.png" />
+              <!--<File Id="SubscriptionIcon" Name="SubscriptionIcon.ico" Source="..\SubscriptionIcon.ico" />-->
+              <File Id="CommandLine" Name="cmdline.txt" Source="cmdline.txt" />
+              <File Id="SubscriptionManifestTemplate" Name="$(var.PublisherPath).$(var.ProductPath).subscription.template" DiskId="1" Source="..\SubscriptionManifest.subscription" Vital="yes" />
+            
+              <util:XmlFile Id="SubscriptionManifestSettings1" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/Name" Value="$(var.ApplicationName)" Permanent="yes" Sequence="1" />
+              <util:XmlFile Id="SubscriptionManifestSettings2" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/LogoPath" Value="[SubscriptionLogoPath]" Permanent="yes" Sequence="2" />
+              <util:XmlFile Id="SubscriptionManifestSettings3" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/ApplicationPath" Value="[ProductExePath]" Permanent="yes" Sequence="3" />
+              <util:XmlFile Id="SubscriptionManifestSettings4" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/CacheFolder" Value="$(var.PublisherPath)\$(var.ProductPath)\Cache" Permanent="yes" Sequence="4" />                    
+              <util:XmlFile Id="SubscriptionManifestSettings5" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/FeedUri" Value="$(var.FeedUri)" Permanent="yes" Sequence="5" />                    
+              <util:XmlFile Id="SubscriptionManifestSettings6" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/ttl" Value="$(var.FeedUpdateInterval)" Permanent="yes" Sequence="6" />
+              <util:XmlFile Id="SubscriptionManifestSettings7" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/RequiresAuthentication" Value="$(var.RequiresAuthentication)" Permanent="yes" Sequence="7" />
+              <util:XmlFile Id="SubscriptionManifestSettings8" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/AuthenticationUri" Value="$(var.AuthenticationUri)" Permanent="yes" Sequence="8" />
+              <util:XmlFile Id="SubscriptionManifestSettings9" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/RequiresFormAuthentication" Value="$(var.RequiresFormAuthentication)" Permanent="yes" Sequence="9" />
+              <util:XmlFile Id="SubscriptionManifestSettings10" File="[SubscriptionManifestFilePath]" Action="setValue" ElementPath="/SubscriptionManifest/FormAuthenticationParams" Value="$(var.FormAuthenticationParams)" Permanent="yes" Sequence="10" />
+              
+              <RemoveFile Id="ProductExe" Name="$(var.ProductExe)" On="uninstall" />
+              <RemoveFile Id="SceDfShimExe" Name="SceDfshim.exe" On="uninstall" />
+              <RemoveFile Id="SubscriptionLogo" Name="SubscriptionLogo.png" On="uninstall" />
+              <!--<RemoveFile Id="SubscriptionIcon" Name="SubscriptionIcon.ico" On="uninstall" />-->
+              <RemoveFile Id="CommandLine" Name="cmdline.txt" On="uninstall" />
+              <RemoveFile Id="SubscriptionManifestTemplate" Name="$(var.PublisherPath).$(var.ProductPath).subscription.template" On="uninstall" />
+              
+              <!-- Remove well known files created by the application -->
+              <RemoveFile Id="LogFile" Name="log.txt" On="uninstall" />
+              <RemoveFile Id="StatsFile" Name="counter.txt.Scereaderstat" On="uninstall" />                                                                      
+
+              <!--<RegistryValue Id="DefaultIconRegKey0" Root="HKCU" Key="SOFTWARE\Classes\$(var.DocFileExtension)" Value="$(var.DocProgId)" Type="string" Action="write" />-->
+              <!--<RegistryValue Id="DefaultIconRegKey1" Root="HKCU" Key="SOFTWARE\Classes\$(var.DocProgId)" Value="$(var.DocDescription)" Type="string" Action="write" />
+              <RegistryValue Id="DefaultIconRegKey2" Root="HKCU" Key="SOFTWARE\Classes\$(var.DocProgId)\DefaultIcon" Value="&quot;[#SubscriptionIcon]&quot;" Type="string" Action="write" />-->
+              <RegistryValue Id="DefaultIconRegKey3" Root="HKCU" Key="SOFTWARE\Classes\$(var.DocProgId)\shell\open\command" Value="&quot;[#SceDfShimExe]&quot; &quot;[#ProductExe]&quot; &quot;[#CommandLine]&quot; /SavedStory &quot;%1&quot;" Type="string" Action="write" />
+            </Component>
+            <Component Id="VSVCRedistComponent" Guid="PUT-GUID-HERE">
+              <RegistryValue Id="HasVSVCRedistRegKey" Root="HKCU" Key="SOFTWARE\$(var.PublisherPath)\$(var.ProductPath)" Name="HasVSVCRedist" Value="1" Type="integer" KeyPath="yes" />
+              <File Id="Msvcr80File" Name="msvcr80.dll" Source="..\..\References\msvcr80.dll" />
+              <File Id="Msvc80CRTManifestFile" Name="Microsoft.VC80.CRT.manifest" Source="..\..\References\Microsoft.VC80.CRT.manifest" />
+              <RemoveFile Id="RemoveMsvcr80File" Name="msvcr80.dll" On="uninstall" />
+              <RemoveFile Id="RemoveMsvc80CRTManifestFile" Name="Microsoft.VC80.CRT.manifest" On="uninstall" />
+            </Component>
+          </Directory>
+        </Directory>
+
+        <Directory Id="SubscriptionCenterPublisherFolder" Name="Microsoft">
+            <Directory Id="SubscriptionCenterFolder" Name="SubscriptionCenter">
+                <Directory Id="SubscriptionCenterManifestsFolder" Name="Manifests">
+                  <Component Id="SubscriptionManifestComponent" Guid="PUT-GUID-HERE">
+                    <RegistryValue Id="HasSubscriptionManifestRegKey" Root="HKCU" Key="SOFTWARE\$(var.PublisherPath)\$(var.ProductPath)" KeyPath="yes" Name="HasSubscriptionManifest" Value="1" Type="integer" />
+                    <CopyFile Id="CopySubscriptionManifestFile" FileId="SubscriptionManifestTemplate" DestinationName="dummy.tmp" DestinationLongName="$(var.PublisherPath).$(var.ProductPath).subscription" />
+                    <RemoveFile Id="SubscriptionManifestFile" Name="$(var.PublisherPath).$(var.ProductPath).subscription" On="uninstall" />
+                    <RemoveFolder Id="SubscriptionCenterManifestsFolder" Directory="SubscriptionCenterManifestsFolder" On="uninstall" />
+                  </Component>
+                </Directory>
+            </Directory>
+        </Directory>
+      </Directory>
+      
+    </Directory>
+    <!-- A feature set to install -->
+    <Feature Id="Complete" Title="$(var.ProductName)" Display="expand" Level="1" TypicalDefault="install">
+      <ComponentRef Id="MainProductComponent" Primary="yes" />
+      <ComponentRef Id="VSVCRedistComponent" />
+      <ComponentRef Id="SubscriptionManifestComponent" />
+    </Feature>
+    <InstallExecuteSequence>
+      <Custom Action="SetProductExePath" Before="InstallFiles" />
+      <Custom Action="SetSubscriptionManifestFilePath" Before="InstallFiles" />
+      <Custom Action="SetSubscriptionLogoPath" Before="InstallFiles" />
+      <RemoveExistingProducts After="InstallInitialize" />
+      <Custom Action="NoDowngrade" After="FindRelatedProducts">NEWERFOUND</Custom>
+      <Custom Action="AlreadyUpdated" After="FindRelatedProducts">PATCHFOUND</Custom>      
+    </InstallExecuteSequence>
+    <UI />
+  </Product>
+</Wix>

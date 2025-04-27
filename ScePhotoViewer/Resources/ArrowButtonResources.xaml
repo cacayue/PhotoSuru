@@ -1,0 +1,213 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+    <!-- Default application-wide Navigation Arrow Button resources for all UI exposing navigation commands -->
+
+    <Storyboard x:Key="OrangeArrowMouseOver">
+        <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ArrowPath" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)">
+            <SplineColorKeyFrame KeyTime="00:00:00.1000000" Value="#FFD7BD52"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="OrangeArrowMouseNotOver">
+        <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="ArrowPath" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)">
+            <SplineColorKeyFrame KeyTime="00:00:00" Value="#FFD7BD52"/>
+            <SplineColorKeyFrame KeyTime="00:00:00.1000000" Value="#FFDB8715"/>
+        </ColorAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <ControlTemplate x:Key="OrangeArrowDrawingNoShadow">
+        <Grid Background="#00FFFFFF" Cursor="Hand">
+            <Viewbox RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Viewbox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        <SkewTransform AngleX="0" AngleY="0"/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform X="0" Y="0"/>
+                    </TransformGroup>
+                </Viewbox.RenderTransform>
+                <Canvas Width="27.1293" Height="30.3003">
+                    <Path x:Name="ArrowPath" Width="27.13" Height="30.3" Stretch="Fill" Data="M0.333374,15.1501 L26.7958,0.333313 C26.814947,0.90017135 26.564945,28.900436 26.796,29.967 L0.333374,15.1501 z" StrokeThickness="0.666594" StrokeLineJoin="Round">
+                        <Path.Stroke>
+                            <LinearGradientBrush StartPoint="0.993379,0.0147525" EndPoint="0.993379,0.990664">
+                                <GradientStop Color="#FF171717" Offset="0"/>
+                                <GradientStop Color="#FF818181" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                        <Path.Fill>
+                            <LinearGradientBrush StartPoint="0.993379,0.0147525" EndPoint="0.993379,0.990664">
+                                <GradientStop Color="#FFDB8715" Offset="0"/>
+                                <GradientStop Color="#FFDB8715" Offset="0.987288"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                    </Path>
+                    <Path x:Name="RidgeOverlayPath" Width="25.323" Height="15.256" Canvas.Left="1.252" Canvas.Top="1.148" Stretch="Fill" Data="M1.2886225,15.533283 L26.491389,1.2040479 C26.510901,1.0087313 26.686344,16.066371 26.426235,16.066465 18.112402,15.2667 7.47437,14.7217 2.57239,16.4038 L1.3535771,15.59993 z" StrokeThickness="1" StrokeLineJoin="Round">
+                        <Path.Stroke>
+                            <LinearGradientBrush StartPoint="0.99473,-0.0133688" EndPoint="0.99473,1.09066">
+                                <GradientStop Color="#34FFFFFF" Offset="0"/>
+                                <GradientStop Color="#0BFFFFFF" Offset="0.987288"/>
+                            </LinearGradientBrush>
+                        </Path.Stroke>
+                        <Path.Fill>
+                            <LinearGradientBrush StartPoint="0.99473,-0.0133688" EndPoint="0.99473,1.09066">
+                                <GradientStop Color="#34FFFFFF" Offset="0"/>
+                                <GradientStop Color="#0BFFFFFF" Offset="0.987288"/>
+                            </LinearGradientBrush>
+                        </Path.Fill>
+                    </Path>
+                </Canvas>
+            </Viewbox>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource OrangeArrowMouseOver}"/>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource OrangeArrowMouseNotOver}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="OrangeArrowButtonLeftNoShadow" BasedOn="{x:Null}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Control Focusable="False" Template="{StaticResource OrangeArrowDrawingNoShadow}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="OrangeArrowButtonRightNoShadow" BasedOn="{StaticResource OrangeArrowButtonLeftNoShadow}" TargetType="{x:Type Button}">
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1" ScaleY="1"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="OrangeArrowButtonUpNoShadow" BasedOn="{StaticResource OrangeArrowButtonLeftNoShadow}" TargetType="{x:Type Button}">
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                    <ScaleTransform ScaleX="-1"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="OrangeArrowButtonDownNoShadow" BasedOn="{StaticResource OrangeArrowButtonLeftNoShadow}" TargetType="{x:Type Button}">
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <RotateTransform Angle="-90"/>
+                    <ScaleTransform ScaleX="-1"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <ControlTemplate x:Key="OrangeEnterDrawingNoShadow">
+        <Grid Background="#00FFFFFF" Cursor="Hand">
+            <Rectangle x:Name="ArrowPath" Stroke="#FFB07007" VerticalAlignment="Center" HorizontalAlignment="Center" Width="20" Height="25" RadiusX="3" RadiusY="3" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#FFEAAE4C" Offset="0.3"/>
+                        <GradientStop Color="#FFC18116" Offset="0.8"/>
+                        <GradientStop Color="#FFF0E5D1" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Path Fill="#FFDD941D" Stretch="Fill" Stroke="#FFEEE9E9" HorizontalAlignment="Center" VerticalAlignment="Center" Width="5" Height="4" Data="M242,172 C242.86052,171.2285 243.25684,170.87199 244.1164,170.14815">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform X="-5" Y="1"/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+            <Path Fill="#FFDD941D" Stretch="Fill" Stroke="#FFF6EEEE" HorizontalAlignment="Center" VerticalAlignment="Center" Width="5" Height="4" Data="M241.49664,172.50336 C242.08933,173.18723 242.60522,173.72212 243.1745,174.18121">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform X="-5" Y="4"/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+            <Path Fill="#FFEAE7E7" Stretch="Fill" Stroke="#FFE7DDDD" Width="1" Height="8" Data="M248.5,166 C248.5,168.16667 248.5,170.33333 248.5,172.5" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1" ScaleY="1"/>
+                        <TranslateTransform X="6" Y="0"/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+            <Path Fill="#FFDD941D" Stretch="Fill" Stroke="#FFFAF6F6" Width="13" Height="2" Margin="0,5.25,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M248.61376,172.26455 C246.32099,172.26455 244.02822,172.26455 241.73545,172.26455"/>
+            <Path Fill="#FFDD941D" Stretch="Fill" Stroke="#FFECEBE5" Width="5" Height="2" Margin="6,-5,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M247.82011,166.44444 C247.02646,166.44444 246.2328,166.44444 245.43915,166.44444"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource OrangeArrowMouseOver}"/>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource OrangeArrowMouseNotOver}"/>
+                </Trigger.ExitActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="OrangeEnterButtonNoShadow" BasedOn="{x:Null}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}" >
+                    <Control Focusable="False" Template="{StaticResource OrangeEnterDrawingNoShadow}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<SubscriptionManifest>
+  <Name></Name>
+  <LogoPath></LogoPath>
+  <ApplicationPath></ApplicationPath>
+  <CacheFolder></CacheFolder>
+  <FeedUri></FeedUri>
+  <ttl></ttl>
+  <RequiresAuthentication></RequiresAuthentication>
+  <AuthenticationUri></AuthenticationUri>
+  <RequiresFormAuthentication></RequiresFormAuthentication>
+  <FormAuthenticationParams></FormAuthenticationParams>
+</SubscriptionManifest>

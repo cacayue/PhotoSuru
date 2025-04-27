@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<InstallInstructions>
+  
+    <!-- Caption of the Installer window. -->
+    <WindowTitle>Sample Sce Reader Setup</WindowTitle>
+
+    <!-- Name of the application to use when showing status. -->
+    <ApplicationName>Sample Sce Reader</ApplicationName>
+
+    <!-- Application version - ignored by the Installer (optional). -->
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+  
+    <!-- Icon to use with the Installer window. -->
+    <ApplicationIcon>Setup.ico</ApplicationIcon>
+  
+    <!-- MSI package to install (optional). -->
+    <ApplicationMSI>Payload.msi</ApplicationMSI>
+    
+    <!-- Command line or URL to launch once installation completes (optional). -->
+    <!-- ApplicationLaunch>http://newsreader:8080/deploy/NewsReaderSample.application</ApplicationLaunch -->
+  
+    <!-- Page to show upon startup. -->
+    <ApplicationReadmePage  Source="readme.htm" />
+  
+    <!-- Page containing .NET 3.0 EULA text shown after Readme page. -->
+    <DotNetEULAPage         Source="neteula.htm" />        
+  
+    <!-- Page to show if installation completes successfully (skipped if ApplicationLaunch is used). -->
+    <SuccessPage            Source="success.htm" />
+
+    <!-- Page to show if installation fails for any reason. -->
+    <FailurePage            Source="failure.htm" />
+    
+    <!-- Collection of slides to cycle through while installation is in progress.
+         For each slide, the time to keep it displayed is specified in milliseconds. -->
+    <SlidePage Source="dotnet.htm" Time="3000" />
+    <SlidePage Source="10.htm" Time="7000" />
+    <SlidePage Source="20.htm" Time="7000" />
+    <SlidePage Source="30.htm" Time="7000" />
+  
+</InstallInstructions>

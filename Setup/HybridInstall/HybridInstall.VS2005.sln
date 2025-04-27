@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "HybridInstall", "HybridInstall.wixproj", "{FC5F6316-055A-4CF9-8D05-F326153DAFF4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC5F6316-055A-4CF9-8D05-F326153DAFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5F6316-055A-4CF9-8D05-F326153DAFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5F6316-055A-4CF9-8D05-F326153DAFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5F6316-055A-4CF9-8D05-F326153DAFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU		
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,25 @@
+﻿<?Mapping XmlNamespace="ScePhotoViewer" ClrNamespace="ScePhotoViewer" ?>
+<Application x:Class="ScePhotoViewer.ScePhotoViewerApplication"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    StartupUri="pack://application:,,,/Pages/MainPage.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/ColorResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/ArrowButtonResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/BaseResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/SlideShowResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/ScrollViewerResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/ComboBoxResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/SyncControlResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/SearchResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/FlowViewerResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/PhotoViewerResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/PhotoGalleryAlbumSelectorResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/PhotoAlbumResources.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/GalleryHomeResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

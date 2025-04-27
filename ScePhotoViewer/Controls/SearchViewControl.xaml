@@ -1,0 +1,310 @@
+<UserControl x:Class="ScePhotoViewer.SearchViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ScePhoto="clr-namespace:ScePhoto;assembly=ScePhoto"
+             xmlns:ScePhotoViewer="clr-namespace:ScePhotoViewer"
+             xmlns:ScePhotoControls="clr-namespace:ScePhoto.Controls;assembly=ScePhoto"
+             FocusVisualStyle="{x:Null}">
+    <UserControl.Resources>
+
+        <!-- Style for the ListViewItems hosting the search results-->
+        <Style x:Key="PhotoStyle_Search" TargetType="{x:Type ListViewItem}"  >
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Button Style="{DynamicResource Button_Image}" >
+                            <StackPanel VerticalAlignment="Top">
+                                <Image Source="{Binding Path=ThumbnailUri}" />
+                                <TextBlock x:Name="Title" Text="{Binding Path=Title}" Style="{StaticResource Text_Title}" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Animated button containing an explorer node -->
+        <Style x:Key="PhotoExplorerNodeButton" TargetType="{x:Type Button}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" RenderTransformOrigin="0.5,0.5" CornerRadius="15" BorderBrush="#00BE7501" BorderThickness="1">
+                            <Border.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                </TransformGroup>
+                            </Border.RenderTransform>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="#00F6DEA4" Offset="0"/>
+                                    <GradientStop Color="#00A25C00" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <ContentPresenter Focusable="False"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}"  Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0400000" Value="1.3" KeySpline="0.125,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0700000" Value="1.2"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0400000" Value="1.3" KeySpline="0.125,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0700000" Value="1.2"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.2200000" Value="1.05" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.2200000" Value="1.05" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" TargetName="ButtonBorder">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="#FFF6DEA4" Offset="0"/>
+                                                <GradientStop Color="#FFA25C00" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="BorderBrush" TargetName="ButtonBorder" Value="#FFBE7501"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsKeyboardFocused}"  Value="True" />
+                                </MultiDataTrigger.Conditions>
+                                <MultiDataTrigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0400000" Value="1.3" KeySpline="0.125,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0700000" Value="1.2"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0400000" Value="1.3" KeySpline="0.125,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.0700000" Value="1.2"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.EnterActions>
+                                <MultiDataTrigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.2200000" Value="1.05" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="ButtonBorder">
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="1" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.2200000" Value="1.05" KeySpline="0,0,0.875,1"/>
+                                                <SplineDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </MultiDataTrigger.ExitActions>
+                                <MultiDataTrigger.Setters>
+                                    <Setter Property="Background" TargetName="ButtonBorder">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="#FFF6DEA4" Offset="0"/>
+                                                <GradientStop Color="#FFA25C00" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="BorderBrush" TargetName="ButtonBorder" Value="#FFBE7501"/>
+                                </MultiDataTrigger.Setters>
+                            </MultiDataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- DataTemplate for generic nodes display a string, like a simple search -->
+        <DataTemplate DataType="{x:Type ScePhotoControls:PhotoExplorerBaseNode}">
+            <Border Background="#333333" CornerRadius="5" Padding="5" BorderBrush="#666666" BorderThickness="2">
+                <TextBlock Text="{Binding Path=Name}" Foreground="#DDDDDD" FontSize="14" FontWeight="Bold"/>
+            </Border>
+        </DataTemplate>
+
+        <!-- DataTemplate for explorer nodes that display a photo -->
+        <DataTemplate DataType="{x:Type ScePhotoControls:PhotoExplorerPhotoNode}">
+            <Button Command="ScePhotoControls:PhotoExplorerControl.SwitchCenterNodeCommand" CommandParameter="{Binding}" Style="{StaticResource PhotoExplorerNodeButton}" Margin="2,6">
+                <Border Background="#333333" CornerRadius="12" BorderBrush="#666666" BorderThickness="2" Margin="2">
+                    <ScePhotoControls:PhotoThumbnailControl Photo="{Binding Path=Photo}" Width="110" Height="110" RenderTransformOrigin="0.5,0.5" Focusable="False">
+                        <ScePhotoControls:PhotoThumbnailControl.Clip>
+                            <RectangleGeometry Rect="0,0,110,110" RadiusX="{Binding Path=CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}" RadiusY="{Binding Path=CornerRadius.TopLeft, RelativeSource={RelativeSource AncestorType={x:Type Border}}}"/>
+                        </ScePhotoControls:PhotoThumbnailControl.Clip>
+                    </ScePhotoControls:PhotoThumbnailControl>
+                </Border>
+            </Button>
+        </DataTemplate>
+
+        <!-- DataTemplate for explorer nodes that display a tag -->
+        <DataTemplate DataType="{x:Type ScePhotoControls:PhotoExplorerTagNode}">
+            <Button Command="ScePhotoControls:PhotoExplorerControl.SwitchCenterNodeCommand" CommandParameter="{Binding}" Style="{StaticResource PhotoExplorerNodeButton}" Margin="2,6">
+                <Border Background="#333333" CornerRadius="12" Padding="5" BorderBrush="#666666" BorderThickness="2" Margin="2">
+                    <TextBlock Text="{Binding Path=Name}" Foreground="#DDDDDD" FontSize="14" FontWeight="Bold"/>
+                </Border>
+            </Button>
+        </DataTemplate>
+      
+        <!--Control template for the list view-->
+        <ControlTemplate x:Key="SearchListViewTemplate">
+          <Grid x:Name="CenterGrid" Margin="0,5,10,0">
+            <Grid DataContext="{Binding Path=Album, RelativeSource={RelativeSource TemplatedParent}}" Margin="20,15,0,10">
+              <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                  <Style.Triggers>
+                    <DataTrigger Binding="{Binding}" Value="{x:Null}">
+                      <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                  </Style.Triggers>
+                </Style>
+              </Grid.Style>
+              <Grid Name="Grid1" Panel.ZIndex="3" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1" Margin="10,10,10,0"  MaxHeight="215" VerticalAlignment="Top">
+                  <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="#DDDDDD" FontSize="42" FontFamily="Cambria" TextWrapping="Wrap" Text="Search: "/>
+                    <TextBlock Foreground="#DDDDDD" FontSize="42" FontFamily="Cambria" TextWrapping="Wrap" Text="{Binding Path=Title}"/>
+                  </StackPanel>
+                  <TextBlock Foreground="#DDDDDD"  FontSize="14">
+                    <TextBlock Text="{Binding Path=ChangeDate, Converter={StaticResource DateTimeConverter}}"/> |
+                    <TextBlock Text="{Binding Path=Photos.Count}"/> Photos
+                  </TextBlock>
+                </StackPanel>
+                <ItemsControl Margin="20,0,20,0" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding Path=Album.Photos, RelativeSource={RelativeSource TemplatedParent}}" ItemsPanel="{StaticResource VirtualizingHorizontalRowPanel}" ItemTemplate="{StaticResource GalleryItemTemplate}" Focusable="False"/>
+              </Grid>
+              <Grid Name="Grid2" Visibility="Visible" Opacity="0.3" Panel.ZIndex="2">
+                <ScePhotoControls:LargePhotoThumbnailControl Photo="{Binding Path=Photos[0]}" RenderTransformOrigin="0.5,0.5" Focusable="False"/>
+              </Grid>
+            </Grid>
+          </Grid>
+        </ControlTemplate>
+
+        <!-- Button style for switching the search display mode-->
+        <Style x:Key="SearchModeButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#666666"/>
+            <Setter Property="KeyboardNavigation.IsTabStop" Value="True"/>
+            <Setter Property="KeyboardNavigation.TabIndex" Value="50"/>
+            <Setter Property="Focusable" Value="True"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="5" Padding="8,4" Background="{TemplateBinding Background}" Margin="1,0">
+                            <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="16" FontWeight="Bold"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsMouseOver" Value="True"/>
+                        <Condition Property="IsEnabled" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Foreground" Value="#DDDDDD"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsKeyboardFocused" Value="True"/>
+                        <Condition Property="IsEnabled" Value="True"/>
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="Foreground" Value="#DDDDDD"/>
+                        <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#BBBBBB"/>
+                    <Setter Property="Foreground" Value="#333333"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="3" HorizontalAlignment="Right">
+            <StackPanel x:Name="PhotoCount" Orientation="Horizontal">
+                <TextBlock Text="{Binding Path=Photos.Count}" FontSize="16" FontWeight="Bold" Foreground="#DDDDDD" VerticalAlignment="Center"/>
+                <TextBlock Text=" Photo(s)" FontSize="16" FontWeight="Bold" Foreground="#DDDDDD" VerticalAlignment="Center"/>
+            </StackPanel>
+            <Border BorderBrush="#777777" BorderThickness="2" CornerRadius="7" Padding="1,2" Margin="10,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="List" Style="{StaticResource SearchModeButton}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ScePhotoViewer:SearchViewControl}}, Path=SwitchToListViewCommand}"/>
+                    <Button Content="Explore" Style="{StaticResource SearchModeButton}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ScePhotoViewer:SearchViewControl}}, Path=SwitchToPhotoExplorerCommand}"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <ScePhotoViewer:PhotoAlbumControl Album="{Binding Path=.}" Template="{StaticResource SearchListViewTemplate}" KeyboardNavigation.TabNavigation="Continue" Grid.Row="1" x:Name="SearchListView" RenderTransformOrigin="0.5, 0.5" FocusVisualStyle="{x:Null}">
+            <ScePhotoViewer:PhotoAlbumControl.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" x:Name="ListViewTransform"/>
+            </ScePhotoViewer:PhotoAlbumControl.RenderTransform>
+        </ScePhotoViewer:PhotoAlbumControl>
+        <ScePhotoControls:PhotoExplorerControl Grid.Row="1" x:Name="PhotoExplorer" Visibility="Collapsed" FocusVisualStyle="{x:Null}" Focusable="True" KeyboardNavigation.IsTabStop="False"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,-2,10,5" Width="260" x:Name="NavigationButtons">
+            <Button Style="{DynamicResource OrangeArrowButtonLeftNoShadow}" Width="33" Height="25.3" 
+                    Command="{Binding Source={x:Static ScePhoto:ServiceProvider.ViewManager}, Path=NavigationCommands.PreviousPhotoCommand}" 
+                    ToolTip="Previous Photo" AutomationProperties.AutomationId="PreviousStory" AutomationProperties.Name="PreviousStory" />
+            <Label Content="Photo" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="{StaticResource Foreground_ChromeTextContrast}"/>
+            <Button Style="{DynamicResource OrangeArrowButtonRightNoShadow}" Width="33" Height="25.3"
+                    Command="{Binding Source={x:Static ScePhoto:ServiceProvider.ViewManager}, Path=NavigationCommands.NextPhotoCommand}"
+                    ToolTip="Next Photo" AutomationProperties.AutomationId="NextPhoto" AutomationProperties.Name="NextPhoto" />
+
+            <!--Divider Panel-->
+            <Grid Width="5" />
+
+            <!-- Album navigation UI -->
+            <Label Content="Return to Home" VerticalAlignment="Center" Margin="5,0,5,0" Foreground="{StaticResource Foreground_ChromeTextContrast}" />
+            <Button Style="{DynamicResource OrangeArrowButtonUpNoShadow}" Width="23" Height="35.3" 
+                    Command="{Binding Source={x:Static ScePhoto:ServiceProvider.ViewManager}, Path=NavigationCommands.NavigateToFirstPhotoAlbumCommand}" 
+                    ToolTip="Return to Home" AutomationProperties.AutomationId="FirstPhotoAlbum" AutomationProperties.Name="FirstPhotoAlbum" />
+        </StackPanel>
+    </Grid>
+</UserControl>

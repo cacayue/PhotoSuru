@@ -1,0 +1,108 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+                    xmlns:ScePhotoData="clr-namespace:ScePhoto.Data;assembly=ScePhoto"
+                    xmlns:ScePhotoViewer="clr-namespace:ScePhotoViewer"
+                    xmlns:ScePhoto="clr-namespace:ScePhoto;assembly=ScePhoto"
+                    xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+    <!-- Style for button in Search Control -->
+    <DrawingBrush x:Key="SearchButtonDrawingBrush" Viewbox="0,0,35.165,24.176" ViewboxUnits="Absolute">
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{StaticResource Fill_ChromeUIDefault}" Geometry="M3.0517571E-06,2.2201611E-08 L29.670996,2.2201611E-08 C32.705995,2.2201611E-08 35.164995,2.4597181 35.164995,5.4939081 L35.164995,18.682082 C35.164995,21.716292 32.705995,24.176 29.670996,24.176 L3.0517571E-06,24.176 3.0517571E-06,2.2201611E-08 z"/>
+                <GeometryDrawing Brush="{StaticResource Fill_ChromeUIBevel}" Geometry="M3.0517571E-06,2.2201215E-08 L29.670996,2.2201215E-08 C32.705995,2.2201215E-08 35.164995,2.4596743 35.164995,5.4938101 L35.164995,15.154 C28.651996,8.4651969 16.310999,3.9517226 2.1600025,3.9517226 1.4350027,3.9517226 0.71500288,3.9635624 3.0517571E-06,3.9869421 L3.0517571E-06,2.2201215E-08 z" />
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,14.821,6.583"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="{StaticResource Background_ChromeUIContrast}" Geometry="M3.9068479E-06,-2.2429005E-07 L6.5460057,4.3315265 3.9068479E-06,7.9249999 3.9068479E-06,-2.2429005E-07 z"/>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <!-- Style for the search button -->
+    <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{StaticResource SearchButtonDrawingBrush}" Width="{TemplateBinding Width}" Margin="0,0,0,0"  CornerRadius="0,6,6,0" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocused" Value="True">
+                <Setter Property="BitmapEffect" Value="{StaticResource FocusedVisualGlow}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Style for search control on main page -->
+    <Style x:Key="SearchControlStyle" TargetType="{x:Type Control}" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Control}">
+                    <aero:SystemDropShadowChrome CornerRadius="3" Color="#FF000000" Width="155">
+                        <Border BorderThickness="1" BorderBrush="#FF211D49" CornerRadius="4">
+                            <Canvas Width="155" Height="15">
+                                <StackPanel Width="155" Orientation="Horizontal">
+                                    <Border CornerRadius="4,0,0,4" Width="129" Background="{StaticResource Background_ChromeUIContrast}" >
+                                        <Grid>
+                                            <ScePhotoViewer:CommandTextBox Name="PART_SearchTextBox"
+                                                                       MaxLength="1024"
+                                                                       Width="132" Margin="0,3,0,0" BorderThickness="0"
+                                                                       FontFamily="Arial" FontSize="13"
+                                                                       Background="Transparent" Foreground="{StaticResource Foreground_ChromeTextDefault}"
+                                                                       CommitCommand="{Binding Source={x:Static ScePhoto:ServiceProvider.ViewManager}, Path=NavigationCommands.SearchCommand}"
+                                                                       CommitCommandParameter="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Text}"
+                                                                       ToolTip="Enter search terms"
+                                                                       AutomationProperties.AutomationId="SearchText">
+                                            </ScePhotoViewer:CommandTextBox>
+                                            <Label Name="SearchTextLabel"
+                                               Margin="4,3,0,0" Padding="0" VerticalAlignment="Top"
+                                               FontFamily="Arial" FontStyle="Italic" FontSize="14"
+                                               Background="Transparent" Foreground="{StaticResource Foreground_ChromeTextDefault}"
+                                               IsHitTestVisible="False" IsEnabled="False"
+                                               Opacity="0.7" Visibility="Collapsed">Search:</Label>
+                                        </Grid>
+                                    </Border>
+
+                                    <DockPanel>
+                                        <Button Cursor="Hand" Background="Transparent"
+                                            Width="28" Margin="-2,0,0,0" Panel.ZIndex="0"
+                                            Command="{Binding Source={x:Static ScePhoto:ServiceProvider.ViewManager}, Path=NavigationCommands.SearchCommand}"
+                                            CommandParameter="{Binding ElementName=PART_SearchTextBox,Path=Text}"
+                                            IsDefault="{Binding ElementName=PART_SearchTextBox,Path=IsKeyboardFocusWithin}"
+                                            ToolTip="Start a search"
+                                            AutomationProperties.AutomationId="Search"
+                                            AutomationProperties.Name="Search"
+                                            Style="{StaticResource SearchButtonStyle}">
+                                        </Button>
+                                    </DockPanel>
+
+                                </StackPanel>
+                            </Canvas>
+                        </Border>
+                    </aero:SystemDropShadowChrome>
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="PART_SearchTextBox" Property="Text" Value="">
+                            <Setter TargetName="SearchTextLabel" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger SourceName="PART_SearchTextBox" Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter TargetName="SearchTextLabel" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Default data template for SearchPhotoAlbum proxy type-->
+    <DataTemplate DataType="{x:Type ScePhotoData:SearchPhotoAlbum}">
+        <ScePhotoViewer:SearchViewControl AutomationProperties.AutomationId="SearchContent" Focusable="True" KeyboardNavigation.IsTabStop="False">
+        </ScePhotoViewer:SearchViewControl>
+    </DataTemplate>
+
+</ResourceDictionary>

@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="InstallInstructions" type="installinstructions" />
+    
+    <xs:complexType name="installinstructions">
+        <xs:sequence>
+            <xs:element name="WindowTitle"        type="xs:token" />
+            <xs:element name="ApplicationName"    type="xs:token" />
+            <xs:element name="ApplicationVersion" type="xs:string"   minOccurs="0" />
+            <xs:element name="ApplicationIcon"    type="xs:string"   minOccurs="0" />
+            <xs:element name="ApplicationMSI"     type="xs:string"   minOccurs="0" />
+            <xs:element name="PrerequisiteMSI"    type="installsequence" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="ApplicationLaunch"  type="xs:string"   minOccurs="0" />
+            <xs:element name="Language"           type="xs:language" minOccurs="0" />
+
+            <xs:element name="ApplicationReadmePage"  type="clickthrupage" />
+            <xs:element name="DotNetEULAPage"         type="clickthrupage" />
+            <xs:element name="SuccessPage"            type="clickthrupage" />
+            <xs:element name="FailurePage"            type="clickthrupage" />
+
+            <xs:element name="SlidePage"   type="slidepage" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="installsequence">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="Parameters" type="xs:string" use="optional" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:complexType name="clickthrupage">
+        <xs:attribute name="Source" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="slidepage">
+        <xs:attribute name="Source" type="xs:string" use="required" />
+        <xs:attribute name="Time" type="slidepagetime" use="required" />
+    </xs:complexType>
+
+    <xs:simpleType name="slidepagetime">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="500" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>

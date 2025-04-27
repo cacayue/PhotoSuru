@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedConverter", "FeedConverter\FeedConverter.csproj", "{A5A64990-35B1-4F09-920A-BEF5D8B501BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScePhotoViewer", "ScePhotoViewer\ScePhotoViewer.csproj", "{77308CBC-E2FF-4224-B115-FD28D80B3B38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScePhoto", "ScePhoto\ScePhoto.csproj", "{55F81C68-4618-4E16-8CB1-759A406E293A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionSync", "..\..\..\Main\sc\SubscriptionSync\SubscriptionSync.csproj", "{8A256E68-A915-4A82-BCD4-7ACCDF8838EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionCenterIpc", "..\..\..\Main\sc\SubscriptionCenterIpc\SubscriptionCenterIpc.csproj", "{50FCF30F-0A2E-42F6-BE17-106D47922514}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EffectLibrary", "EffectLibrary\EffectLibrary.csproj", "{66271E3C-0725-4B49-B62B-910562AF4954}"
+EndProject
+
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5A64990-35B1-4F09-920A-BEF5D8B501BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5A64990-35B1-4F09-920A-BEF5D8B501BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5A64990-35B1-4F09-920A-BEF5D8B501BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5A64990-35B1-4F09-920A-BEF5D8B501BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77308CBC-E2FF-4224-B115-FD28D80B3B38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77308CBC-E2FF-4224-B115-FD28D80B3B38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77308CBC-E2FF-4224-B115-FD28D80B3B38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77308CBC-E2FF-4224-B115-FD28D80B3B38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55F81C68-4618-4E16-8CB1-759A406E293A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55F81C68-4618-4E16-8CB1-759A406E293A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55F81C68-4618-4E16-8CB1-759A406E293A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55F81C68-4618-4E16-8CB1-759A406E293A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A256E68-A915-4A82-BCD4-7ACCDF8838EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A256E68-A915-4A82-BCD4-7ACCDF8838EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A256E68-A915-4A82-BCD4-7ACCDF8838EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A256E68-A915-4A82-BCD4-7ACCDF8838EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50FCF30F-0A2E-42F6-BE17-106D47922514}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50FCF30F-0A2E-42F6-BE17-106D47922514}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50FCF30F-0A2E-42F6-BE17-106D47922514}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50FCF30F-0A2E-42F6-BE17-106D47922514}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66271E3C-0725-4B49-B62B-910562AF4954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66271E3C-0725-4B49-B62B-910562AF4954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66271E3C-0725-4B49-B62B-910562AF4954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66271E3C-0725-4B49-B62B-910562AF4954}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
