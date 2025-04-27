@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ScePhotoViewer.IntroWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ScePhotoViewer="clr-namespace:ScePhotoViewer"
+    xmlns:Properties="clr-namespace:ScePhotoViewer.Properties"
+    Height="310" Width="465">
+    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="4">
+        <Grid Background="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="#DDDDDD" FontSize="35" Margin="15,17">Welcome to</TextBlock>
+            <Image HorizontalAlignment="Right" Height="56" Source="pack://application:,,,/Resources/Images/ScePhotoViewer.png" Margin="15" />
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid Background="#333333" Width="100" Height="100" Margin="15,10,5,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="1" Grid.Column="0" Margin="-8,0,0,0" Style="{DynamicResource OrangeArrowButtonLeftNoShadow}" Width="33" Height="25.3" IsEnabled="False" />
+                    <Button Grid.Row="1" Grid.Column="2" Margin="0,0,-8,0" Style="{DynamicResource OrangeArrowButtonRightNoShadow}" Width="33" Height="25.3" IsEnabled="False" />
+                    <Button Grid.Row="0" Grid.Column="1" Margin="-9,0,0,-6" Style="{DynamicResource OrangeArrowButtonUpNoShadow}" Width="23" Height="35.3" IsEnabled="False" />
+                    <Button Grid.Row="2" Grid.Column="1" Margin="0,-5,-10,0" Style="{DynamicResource OrangeArrowButtonDownNoShadow}" Width="23" Height="35.3" IsEnabled="False" />
+                    <Button Grid.Row="1" Grid.Column="1" Margin="0,-1,0,0" Style="{DynamicResource OrangeEnterButtonNoShadow}" Width="23" Height="35.3" IsEnabled="False" />
+                </Grid>
+                <TextBlock Grid.Column="1" Foreground="#DDDDDD" TextWrapping="Wrap" FontSize="13" Margin="10,0">
+                    <Image Height="22" Margin="-2,0,-3,-4" Source="pack://application:,,,/Resources/Images/ScePhotoViewer.png" />
+                    has been designed to enable effortless navigation. You can use a mouse of course but you can also use your keyboard arrow keys (LEFT, RIGHT, UP, DOWN) and the ENTER key to peruse galleries, albums and photos quickly and easily.
+                    <LineBreak /><LineBreak />If you are on a Tablet PC with a touchscreen, you can also simply gesture with your finger by dragging your finger across the screen in the direction you want to navigate.
+                </TextBlock>
+            </Grid>
+            <CheckBox IsChecked="{Binding Source={x:Static Properties:Settings.Default}, Path=SkipIntroWindow}" Grid.Row="2" HorizontalAlignment="Left" Margin="10">
+                <TextBlock Foreground="#DDDDDD">OK, I got it. Don't show me this again.</TextBlock>
+            </CheckBox>
+            <Button Grid.Row="2" HorizontalAlignment="Right" Margin="10" Click="OnButtonClick" Width="50" Background="Black" Foreground="White">Close</Button>
+        </Grid>
+    </Border>
+</UserControl>

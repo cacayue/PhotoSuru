@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{55F81C68-4618-4E16-8CB1-759A406E293A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScePhoto</RootNamespace>
+    <AssemblyName>ScePhoto</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\StrongNameTestKey\TestKey.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="SubscriptionSync, Version=0.9.3.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\SubscriptionSync.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Printing, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\BreadcrumbBox.cs" />
+    <Compile Include="Controls\CommandButton.cs" />
+    <Compile Include="Controls\LargePhotoThumbnailControl.cs" />
+    <Compile Include="Controls\MainContentContainer.cs" />
+    <Compile Include="Controls\PhotoExplorerControl.cs" />
+    <Compile Include="Controls\PhotoExplorerBaseNode.cs" />
+    <Compile Include="Controls\PhotoExplorerPhotoNode.cs" />
+    <Compile Include="Controls\PhotoExplorerTagNode.cs" />
+    <Compile Include="Controls\PhotoGalleryAlbumSelector.cs" />
+    <Compile Include="Controls\PhotoBaseControl.cs" />
+    <Compile Include="Controls\PhotoThumbnailControl.cs" />
+    <Compile Include="Controls\SizeTemplateControl.cs" />
+    <Compile Include="Data\PhotoSlideShow.cs" />
+    <Compile Include="Data\HomePhotoAlbum.cs" />
+    <Compile Include="Data\NavigatableObject.cs" />
+    <Compile Include="Data\MissingItemError.cs" />
+    <Compile Include="Data\NoDataAvailableError.cs" />
+    <Compile Include="Data\SearchPhotoAlbum.cs" />
+    <Compile Include="Data\TagStore.cs" />
+    <Compile Include="DoubleUtil.cs" />
+    <Compile Include="Feed\GetTextDocumentCompletedEventArgs.cs" />
+    <Compile Include="Feed\PhotoFeedConverter.cs" />
+    <Compile Include="Data\Channel.cs" />
+    <Compile Include="Data\DataObjectCollection.cs" />
+    <Compile Include="Data\FeedItem.cs" />
+    <Compile Include="Data\GuidStore.cs" />
+    <Compile Include="Data\Item.cs" />
+    <Compile Include="Data\MasterFeedContent.cs" />
+    <Compile Include="Data\Photo.cs" />
+    <Compile Include="Data\PhotoAlbum.cs" />
+    <Compile Include="Data\PhotoAlbumCollection.cs" />
+    <Compile Include="Data\PhotoCollection.cs" />
+    <Compile Include="Data\PhotoGallery.cs" />
+    <Compile Include="Data\PhotoGalleryCollection.cs" />
+    <Compile Include="Feed\GetImageSourceCompletedEventArgs.cs" />
+    <Compile Include="Feed\GetXmlDocumentCompletedEventArgs.cs" />
+    <Compile Include="Feed\LocalDataFeedSource.cs" />
+    <Compile Include="Feed\ResourceContentType.cs" />
+    <Compile Include="Feed\DataFeedSource.cs" />
+    <Compile Include="Feed\DataFeedRequest.cs" />
+    <Compile Include="Data\DataManager.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScePhotoCommand.cs" />
+    <Compile Include="ScePhotoException.cs" />
+    <Compile Include="ScePhotoLogger.cs" />
+    <Compile Include="ScePhotoSettings.cs" />
+    <Compile Include="ServiceProvider.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="View\MasterNavigator.cs" />
+    <Compile Include="View\NavigationCommands.cs" />
+    <Compile Include="View\Navigator.cs" />
+    <Compile Include="View\SyncCommands.cs" />
+    <Compile Include="View\ViewCommand.cs" />
+    <Compile Include="View\ViewManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
